@@ -4,11 +4,16 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+//middleware
+const bodyParser = require('body-parser');
+
 const routes = {
   products: '/products',
   questions: '/questions',
   reviews: '/reviews',
 };
+
+app.use(bodyParser());
 
 app.get('/', (req, res) => res.send('Hello World from the Root!'));
 
