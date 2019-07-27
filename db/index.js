@@ -16,6 +16,33 @@ tryCatch(async () => {
   await db.queryAsync(
     'CREATE TABLE IF NOT EXISTS products (product_id BIGINT AUTO_INCREMENT PRIMARY KEY) ENGINE=MyISAM;'
   );
+  await db.queryAsync(
+    `CREATE TABLE IF NOT EXISTS descriptions(
+      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+      product_id BIGINT not null ,
+      description varchar(100), 
+      FOREIGN KEY  fk_product(product_id)
+      REFERENCES products(product_id)
+      ON DELETE CASCADE
+    )ENGINE=MyISAM;`
+  );
+  await db.queryAsync(
+    `CREATE TABLE IF NOT EXISTS reviews(
+      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+      product_id BIGINT not null ,
+      title tinytext, 
+      rating tinyint,
+      recommended boolean,
+      text text,
+      author tinytext,
+      helpful int,
+      unhelpful int,
+
+      FOREIGN KEY  fk_product(product_id)
+      REFERENCES products(product_id)
+      ON DELETE CASCADE
+    )ENGINE=MyISAM;`
+  );
 });
 
 module.exports = db;
