@@ -7,7 +7,7 @@ const reviews = {
       `SELECT * FROM reviews WHERE reviews.product_id =${escapedId}`
     );
   },
-  create(review) {
+  post(review) {
     //sanitize input
     for (let key in review) {
       review[key] = db.escape(review[key]);
@@ -19,6 +19,23 @@ const reviews = {
         review.text
       }, ${review.author})`
     );
+  },
+  put(review) {
+    let query = `UPDATE reviews
+    SET `;
+    for (let key in review) {
+      if (key !== 'id') {
+        if (typeof review[key] === 'string') {
+          query += `${key} = "${review[key]}",`;
+        } else {
+          query += `${key} = ${review[key]},`;
+        }
+      }
+    }
+    query = query.slice(0, query.length - 1);
+    query += ` WHERE id = ${review.id}`;
+    console.log(query);
+    return db.queryAsync(query);
   },
 };
 
