@@ -20,22 +20,19 @@ const reviews = {
       }, ${review.author})`
     );
   },
-  put(review) {
-    let query = `UPDATE reviews
-    SET `;
-    for (let key in review) {
-      if (key !== 'id') {
-        if (typeof review[key] === 'string') {
-          query += `${key} = "${review[key]}",`;
-        } else {
-          query += `${key} = ${review[key]},`;
-        }
-      }
+  isHelpful(helpful, id) {
+    console.log('in isHelpful');
+    let query = `UPDATE reviews SET `;
+    if (helpful) {
+      query += `helpful = helpful + 1 WHERE id = ${db.escape(id)};`;
+      console.log('query', query);
+      return db.queryAsync(query);
+    } else {
+      console.log('query', query);
+
+      query += `unhelpful = unhelpful + 1 WHERE id = ${db.escape(id)};`;
+      return db.queryAsync(query);
     }
-    query = query.slice(0, query.length - 1);
-    query += ` WHERE id = ${review.id}`;
-    console.log(query);
-    return db.queryAsync(query);
   },
 };
 

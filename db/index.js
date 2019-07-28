@@ -43,6 +43,32 @@ tryCatch(async () => {
       ON DELETE CASCADE
     )ENGINE=MyISAM;`
   );
+  await db.queryAsync(
+    `CREATE TABLE IF NOT EXISTS questions(
+      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+      product_id BIGINT not null ,
+      question text,
+      author tinytext,
+      date timestamp DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY  fk_product(product_id)
+      REFERENCES products(product_id)
+      ON DELETE CASCADE
+    )ENGINE=MyISAM;`
+  );
+  await db.queryAsync(
+    `CREATE TABLE IF NOT EXISTS answers(
+      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+      question_id BIGINT not null ,
+      author tinytext,
+      date timestamp DEFAULT CURRENT_TIMESTAMP,
+      text text,
+      helpful int,
+      unhelpful int,
+      FOREIGN KEY  fk_question(question_id)
+      REFERENCES questions(id)
+      ON DELETE CASCADE
+    )ENGINE=MyISAM;`
+  );
 });
 
 module.exports = db;

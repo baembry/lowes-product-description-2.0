@@ -4,14 +4,16 @@ const reviewsModel = require('../db/model/reviews');
 const productsModel = require('../db/model/products');
 const tryCatch = require('../utils/tryCatch');
 
+//get reviews for product with productId
 reviewsRoute.get('/product/:productId', (req, res) => {
   tryCatch(async () => {
     const id = req.params.productId;
     const review = await reviewsModel.get(id);
     res.status(200).send(review);
-  });
+  }, res);
 });
 
+//post reviews for a certain product
 reviewsRoute.post('/product/:productId', (req, res) => {
   tryCatch(async () => {
     const review = req.body;
@@ -24,17 +26,25 @@ reviewsRoute.post('/product/:productId', (req, res) => {
     }
     const dbRes = await reviewsModel.post(review);
     res.status(200).send('review posted');
-  });
+  }, res);
 });
 
+//mark review helpful/unhelpful
 reviewsRoute.put('/:id', (req, res) => {
   tryCatch(async () => {
-    const review = req.body;
+    const helpful = req.query.helpful;
+    if (helpful === undefined) {
+      res.status(404).send('You can only mark an answer helpful or unhelpful');
+      return;
+    }
     const id = req.params.id;
-    review.id = id;
-    const dbRes = await reviewsModel.put(review);
-    res.status(200).send('review updated');
-  });
+    if (helpful === 'true') {
+      await reviewsModel.isHelpful(true, id);
+    } else if (helpful === 'false') {
+      await reviewsModel.isHelpful(false, id);
+    }
+    res.status(200).send('Review updated');
+  }, res);
 });
 
 module.exports = reviewsRoute;
