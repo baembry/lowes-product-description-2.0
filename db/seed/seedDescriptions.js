@@ -5,8 +5,8 @@ const faker = require('faker');
 console.log(process.env.DB_HOST);
 var db = mysql.createConnection({
   host: 'localhost',
-  user: 'brian',
-  password: secrets.password,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
 });
 
 db.connect(function(err) {

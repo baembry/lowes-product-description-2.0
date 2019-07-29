@@ -1,12 +1,13 @@
 secrets = require('./config.secrets');
+require('dotenv').config();
 const faker = require('faker');
 const mysql = require('mysql');
 const Promise = require('bluebird');
 
 var db = mysql.createConnection({
   host: 'localhost',
-  user: 'brian',
-  password: secrets.password,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
 });
 
 Promise.promisifyAll(db);
