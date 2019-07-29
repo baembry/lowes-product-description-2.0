@@ -15,8 +15,7 @@ const routes = {
 };
 
 app.use(bodyParser());
-
-app.get('/', (req, res) => res.send('Hello World from the Root!'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(routes.products, require('./routes' + routes.products));
 

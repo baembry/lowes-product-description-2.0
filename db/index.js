@@ -10,6 +10,7 @@ var db = mysql.createConnection({
 
 Promise.promisifyAll(db);
 
+//create db and tables
 tryCatch(async () => {
   await db.queryAsync('CREATE DATABASE IF NOT EXISTS lowes');
   await db.queryAsync(`USE lowes`);
