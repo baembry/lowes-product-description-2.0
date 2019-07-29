@@ -13,18 +13,20 @@ reviewsRoute.get('/product/:productId', (req, res) => {
   }, res);
 });
 
-//post reviews for a certain product
+//post review for product with productID
 reviewsRoute.post('/product/:productId', (req, res) => {
   tryCatch(async () => {
     const review = req.body;
     const product_id = req.params.productId;
     review.product_id = product_id;
+    
+    //make sure product exists
     const product = await productsModel.get(product_id);
     if (product.length === 0) {
       res.status(400).end('Product not found');
       return;
     }
-    const dbRes = await reviewsModel.post(review);
+    await reviewsModel.post(review);
     res.status(200).send('review posted');
   }, res);
 });

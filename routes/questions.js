@@ -17,9 +17,11 @@ questionsRoute.get('/product/:productId', (req, res) => {
 questionsRoute.post('/product/:productId', (req, res) => {
   tryCatch(async () => {
     const product_id = req.params.productId;
+    //make sure product exists
     const product = await productsModel.get(product_id);
     if (product.length === 0) {
       res.status(400).send('Product not found');
+      return;
     }
     const question = req.body;
     question.product_id = product_id;

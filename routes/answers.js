@@ -8,6 +8,7 @@ const tryCatch = require('../utils/tryCatch');
 answersRoute.post('/question/:questionId', (req, res) => {
   tryCatch(async () => {
     const question_id = req.params.questionId;
+    //make sure question exists
     const question = await questionsModel.get(question_id);
     if (question.length === 0) {
       res.status(400).send('Question not found');
