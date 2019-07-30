@@ -14,6 +14,10 @@ const routes = {
   answers: '/answers',
 };
 
+app.use((req, res, next) => {
+  console.log('Request received');
+  next();
+});
 app.use(bodyParser());
 
 app.use(express.static(__dirname + '/public'));
