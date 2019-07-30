@@ -9,6 +9,7 @@ products.get('/:id', (req, res) => {
     const product = await productsModel.get(id);
     if (product.length === 0) {
       res.status(400).send('Product not found');
+      return;
     }
     res.status(200).send(product);
   }, res);

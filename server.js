@@ -15,6 +15,7 @@ const routes = {
 };
 
 app.use(bodyParser());
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(routes.products, require('./routes' + routes.products));
