@@ -37,4 +37,4 @@ In order to scale up the deployment, I load tested (i) a single deployment on an
 <img src = "images/image3.png" >
 <img src = "images/image4.png" >
 
-The load balancer significantly increatse the number of requests per second the server can handle.
+The load balancer significantly increases the number of requests per second the server can handle.
