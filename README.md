@@ -32,9 +32,9 @@ In order to take advantage of the speed of MySql, I had to refactor the server. 
 
 In order to scale up the deployment, I load tested (i) a single deployment on an AWS ec2.micro instance, and (ii) an nginx load balancer balancing responses between two instances of the service, both on ec2.micro instances. Test results are as follows:
 
-<img src = "./images/image1.png" >
-<img src = "./images/image2.png" >
-<img src = "./images/image3.png" >
-<img src = "./images/image4.png" >
+<img src = "images/image1.png" >
+<img src = "images/image2.png" >
+<img src = "images/image3.png" >
+<img src = "images/image4.png" >
 
 The load balancer significantly increatse the number of requests per second the server can handle.
