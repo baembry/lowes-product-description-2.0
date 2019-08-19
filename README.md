@@ -21,7 +21,7 @@ The Mongo database was not initially indexed on product id's, so finding a singl
 | Database              | Time   |
 | --------------------- | ------ |
 | Mongo with Mongoose   | 8 ms   |
-| Mongo withou Mongoose | 5 ms   |
+| Mongo without Mongoose | 5 ms   |
 | MySql                 | < 1 ms |
 
 ### The Server
